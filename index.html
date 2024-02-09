@@ -1,0 +1,53 @@
+<!doctype html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+        .row {
+            display: flex;
+            flex-grow: 0;
+        }
+        p {margin: 0; padding: 0;}
+    </style>
+</head>
+<body>
+    <div class="row"> <input type="number" id="numbie"><p>mhz</p> </div>
+    <button onclick="calc_lambda()">submit</button>
+    <div class="row"> <p>λ = </p><p id="res"></p></div>
+</body>
+<script>
+    function calc_lambda() {
+        // console.log('asd')
+        var numbie = document.getElementById('numbie')
+        var res = document.getElementById('res')
+        var mhz = parseFloat(numbie.value)
+        // console.log(mhz)
+        var h = (300/mhz)
+
+        if (h > 1) {
+            var h2 = Math.round(((300/mhz) + Number.EPSILON) * 100) / 100+' m'
+            res.innerText = ''+h2
+        }
+        else if (h < 1) {
+            var h2 = Math.round((((300/mhz)*100) + Number.EPSILON) * 100) / 100+' cm'
+            res.innerText = ''+h2
+
+        }
+        clipboard(h2)
+
+    }
+
+    function clipboard(silly) {
+        // Get the text field
+        // var copyText = document.getElementById("res");
+
+        // Select the text field
+        // copyText.select();
+        // copyText.setSelectionRange(0, 99999); // For mobile devices
+
+        // Copy the text inside the text field
+        navigator.clipboard.writeText(silly);
+
+        // Alert the copied text
+        // alert("Copied the text: " + copyText.value);
+    } 
+</script>
